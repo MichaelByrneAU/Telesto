@@ -1,0 +1,68 @@
+# Based on the "trust" template v0.1.2
+# https://github.com/japaric/trust/tree/v0.1.2
+
+dist: trusty
+language: rust
+services: docker
+sudo: required
+
+env:
+  global:
+    - CRATE_NAME=telesto
+
+matrix:
+  include:
+    # Linux
+    - env: TARGET=x86_64-unknown-linux-gnu
+
+    # OSX
+    - env: TARGET=x86_64-apple-darwin
+      os: osx
+
+    # Testing other channels
+    - env: TARGET=x86_64-unknown-linux-gnu
+      rust: beta
+    - env: TARGET=x86_64-unknown-linux-gnu
+      rust: nightly
+
+before_install:
+  - set -e
+  - rustup self update
+
+install:
+  - sh ci/install.sh
+  - source ~/.cargo/env || true
+
+script:
+  - bash ci/script.sh
+
+after_script: set +e
+
+before_deploy:
+  - sh ci/before_deploy.sh
+
+deploy:
+  api_key:
+    secure: EUn0LDISAr/+BHp5JRyimxz37fd03v2RVBi3ULepguldqQ1nEq4O9LKCxLqLhHUxY674mBMBHa/Q/gkeZqmhblRkYrGWJJdWKsAYQCgvSitTn93hGfHwSbHw0OySdDl2MQxw8wfBio6EJmVq8CNLIidRtqOiyFya/jIR5xujX6n6m68Y84+LMihp0N93YyIFWXfzvl9yP5fJ+BzTKRl6gghzJtMQFDk+KNq3R3gVODNLr7oV6bLMMvxFp7HKHApO5zbdAn/IYa1cx279f93zEXzrQIE/fTC8vAsID1DrMpsyaZFYm1qQ5SJh6n68sqOp1tWGePhe8Qlf2BkjaFdXrRm+P6wk4NFHQGhSRmvkHAjGnGTMro6jSU/sE2czyl9jSnrb3fefRsbTNJWv/86M+9Pk2agcMSmwScOm+1KZYUvorAxVGMa9cZkk3BHWNtbk8I2wb90tWQcSH6nen86neR3sPFmMVz8GzMqUu6GPEIx00AMjy75G9zRyQNE+SJet62IXO59RQPA9CN6roaODraN6Bq27ZTnxHgx9O9NXyYD1dlYDcf1ZGC6e466t9OzNakD0UXVrrBP5b36MTo1J5gWtPaWe/vqRx5atlk6AZOUvyjzhkHi6yCuPaz9XG7cxHmB/2PmEa/DTpNV32NgX/5wyU5P8kAiQIH96XukR+LU=
+  file_glob: true
+  file: $CRATE_NAME-$TRAVIS_TAG-$TARGET.*
+  on:
+    condition: $TRAVIS_RUST_VERSION = stable
+    tags: true
+  provider: releases
+  skip_cleanup: true
+
+cache: cargo
+before_cache:
+  # Travis can't cache files that are not readable by "others"
+  - chmod -R a+r $HOME/.cargo
+
+branches:
+  only:
+    # release tags
+    - /^v\d+\.\d+\.\d+.*$/
+    - master
+
+notifications:
+  email:
+    on_success: never

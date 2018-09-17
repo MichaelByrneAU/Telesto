@@ -1,0 +1,24 @@
+[package]
+name = "telesto"
+version = "0.1.0"
+authors = ["Michael Byrne <16238945+MichaelByrneAU@users.noreply.github.com>"]
+
+[dependencies]
+base64 = "0.9.3"
+chrono = "0.4.6"
+clap = "2.32.0"
+csv = "1.0.1"
+failure = "0.1.2"
+futures = "0.1.24"
+indoc = "0.2.8"
+itertools = "0.7.8"
+ratelimit = "0.4.3"
+rust-crypto = "0.2.36"
+serde = "1.0.78"
+serde_derive = "1.0.78"
+serde_json = "1.0.27"
+tokio-core = "0.1.17"
+
+[dependencies.reqwest]
+version = "0.8.8"
+features = ["unstable"]
