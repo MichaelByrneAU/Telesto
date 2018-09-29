@@ -2,8 +2,7 @@
 
 A simple command line application for batching requests to the [Google Directions API](https://developers.google.com/maps/documentation/directions/start "Directions API: Get Started Guide"). Requests are handled asynchronously, enabling many to be resolved concurrently in a short amount of time. 
 
-[![Travis (.org)](https://img.shields.io/travis/MichaelByrneAU/Telesto.svg)](https://github.com/MichaelByrneAU/Telesto) 
-[![AppVeyor](https://img.shields.io/appveyor/ci/MichaelByrneAU/Telesto.svg)](https://github.com/MichaelByrneAU/Telesto)
+[![Build Status](https://travis-ci.com/MichaelByrneAU/Telesto.svg?branch=master)](https://travis-ci.com/MichaelByrneAU/Telesto) [![Build Status](https://ci.appveyor.com/api/projects/status/github/MichaelByrneAU/Telesto?svg=true)](https://ci.appveyor.com/project/MichaelByrneAU/telesto)
 
 Licensed under MIT. 
 
@@ -14,7 +13,7 @@ Licensed under MIT.
   * [Input data scheme](#input-data-schema)
   * [Output data scheme](#output-data-schema)
   * [Directions API terms of service](#directions-api-terms-of-service)
-  * [What does the name mean?](#what-does-the-name-mean-)
+  * [What does the name mean?](#what-does-the-name-mean)
 
 ## Installation
 Pre-compiled binaries of Telesto are available for Windows, macOS and Linux in the [releases section](https://github.com/MichaelByrneAU/Telesto/releases "Telesto Releases"). Users can alternatively compile Telesto from the source:
